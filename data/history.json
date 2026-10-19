@@ -1,6 +1,7 @@
 {
   "usedTopics": [
-    "local-seo"
+    "local-seo",
+    "prompt-writing-basics"
   ],
   "posts": [
     {
@@ -9,6 +10,13 @@
       "title": "Local SEO: Helping Nearby Customers Find You",
       "status": "draft",
       "postId": "6747127000878332795"
+    },
+    {
+      "date": "2026-10-19",
+      "topicId": "prompt-writing-basics",
+      "title": "Prompt Writing Basics: Getting Better Results from AI Tools",
+      "status": "draft",
+      "postId": "3407413324232522775"
     }
   ]
 }

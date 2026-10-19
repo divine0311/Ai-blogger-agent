@@ -30,12 +30,85 @@ const CTA_OPENERS = [
   'To explore real examples of this kind of work, visit'
 ];
 
+const CATEGORY_STYLES = {
+  AI: { accent: '#2563eb', soft: '#eff6ff' },
+  'Digital marketing': { accent: '#db2777', soft: '#fdf2f8' },
+  'AI development': { accent: '#7c3aed', soft: '#f5f3ff' },
+  'Video editing': { accent: '#ea580c', soft: '#fff7ed' }
+};
+
+function escapeHtml(value) {
+  return String(value ?? '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}
+
+function pick(list) {
+  return list[Math.floor(Math.random() * list.length)];
+}
+
+function bannerUrl(text, accent) {
+  return (
+    'https://placehold.co/1200x630/' +
+    accent.replace('#', '') +
+    '/ffffff.png?text=' +
+    encodeURIComponent(text)
+  );
+}
+
+function buildHeroImage(title, category, style) {
+  return [
+    `<img src="${bannerUrl(title, style.accent)}"`,
+    `alt="${escapeHtml(title)}"`,
+    'width="1200" height="630"',
+    'style="width:100%;max-width:100%;height:auto;border-radius:12px;display:block;margin:0 0 24px 0;"',
+    '/>'
+  ].join(' ');
+}
+
 function buildPortfolioParagraph(category, portfolioUrl) {
-  const anchors = ANCHOR_TEXTS[category] ?? ANCHOR_TEXTS.AI;
-  const anchor = anchors[Math.floor(Math.random() * anchors.length)];
-  const opener =
-    CTA_OPENERS[Math.floor(Math.random() * CTA_OPENERS.length)];
-  return `<p>${opener} <a href="${portfolioUrl}" target="_blank" rel="noopener noreferrer">${anchor}</a>, where I share practical projects across AI, digital marketing, websites, chatbots, and video editing.</p>`;
+  const anchor = pick(ANCHOR_TEXTS[category] ?? ANCHOR_TEXTS.AI);
+  const opener = pick(CTA_OPENERS);
+  return (
+    `<p>${opener} ` +
+    `<a href="${escapeHtml(portfolioUrl)}" target="_blank" rel="noopener noreferrer" ` +
+    `style="color:#2563eb;font-weight:600;">${anchor}</a>, ` +
+    'where I share practical projects across AI, digital marketing, websites, chatbots, and video editing.</p>'
+  );
+}
+
+function buildInternalLinkParagraph(category, blogUrl) {
+  if (!blogUrl) return '';
+  const label = category.toLowerCase();
+  const href = `${blogUrl.replace(/\/$/, '')}/search/label/${encodeURIComponent(category)}`;
+  return (
+    '<p>Keep reading with my other guides on ' +
+    `<a href="${escapeHtml(href)}" style="color:#0f766e;font-weight:600;">${escapeHtml(label)} topics</a>,` +
+    ' where I write about practical ways to use these tools in real projects.</p>'
+  );
+}
+
+function buildTakeawaysBox(takeaways, style) {
+  const items = takeaways
+    .map((item) => `<li style="margin:0 0 8px 0;">${escapeHtml(item)}</li>`)
+    .join('\n');
+  return [
+    `<div style="background:${style.soft};border-left:4px solid ${style.accent};padding:18px 22px;border-radius:10px;margin:28px 0;">`,
+    `<h3 style="margin:0 0 12px 0;font-size:19px;color:${style.accent};">Key takeaways</h3>`,
+    `<ul style="margin:0;padding-left:22px;color:#374151;">`,
+    items,
+    '</ul>',
+    '</div>'
+  ].join('\n');
+}
+
+function buildSectionHtml(section, style) {
+  return [
+    `<h2 style="margin:30px 0 10px 0;font-size:22px;line-height:1.35;color:${style.accent};">${escapeHtml(section.heading)}</h2>`,
+    `<p style="margin:0 0 6px 0;">${escapeHtml(section.text)}</p>`
+  ].join('\n');
 }
 
 /**
@@ -55,36 +128,42 @@ export function pickTopic(usedIds = []) {
 }
 
 /**
- * Build a complete HTML blog post from a topic.
- * Returns { title, html, topicId, category, cycleWrapped }.
+ * Build the full HTML post.
+ * `content` is optional AI-written content; when absent the topic's built-in
+ * text is used so the tool always works without an API key.
  */
-export function generatePost(usedIds, portfolioUrl) {
-  const { topic, cycleWrapped } = pickTopic(usedIds);
+export function buildPostHtml({ topic, content, portfolioUrl, blogUrl }) {
+  const style = CATEGORY_STYLES[topic.category] ?? CATEGORY_STYLES.AI;
 
-  const sectionsHtml = topic.sections
-    .map(
-      (section) =>
-        `    <h2>${section.heading}</h2>\n    <p>${section.text}</p>`
-    )
-    .join('\n');
-
-  const portfolioHtml = buildPortfolioParagraph(
-    topic.category,
-    portfolioUrl
-  );
+  const title = content?.title ?? topic.title;
+  const intro = content?.intro ?? topic.intro;
+  const sections = content?.sections ?? topic.sections;
+  const takeaways =
+    content?.takeaways ?? sections.map((section) => section.heading);
+  const closing =
+    content?.closing ??
+    'Try one of these ideas this week, and keep what works for you. Small, consistent steps beat big, complicated plans.';
 
   const html = [
-    `<p>${topic.intro}</p>`,
-    sectionsHtml,
-    portfolioHtml,
-    '<p>Try one of these ideas this week, and keep what works for you. Small, consistent steps beat big, complicated plans.</p>'
+    '<div style="font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;font-size:17px;line-height:1.75;color:#1f2937;">',
+    buildHeroImage(title, topic.category, style),
+    `<p style="margin:0 0 18px 0;font-size:18px;color:#374151;">${escapeHtml(intro)}</p>`,
+    sections.map((section) => buildSectionHtml(section, style)).join('\n'),
+    buildTakeawaysBox(takeaways, style),
+    buildPortfolioParagraph(topic.category, portfolioUrl),
+    buildInternalLinkParagraph(topic.category, blogUrl),
+    `<p style="margin:26px 0 0 0;padding-top:18px;border-top:1px solid #e5e7eb;color:#4b5563;">${escapeHtml(closing)}</p>`,
+    '</div>'
   ].join('\n');
 
-  return {
-    title: topic.title,
-    html,
-    topicId: topic.id,
-    category: topic.category,
-    cycleWrapped
-  };
+  return { title, html };
+}
+
+/**
+ * Convenience wrapper: pick a topic and build the post.
+ */
+export function generatePost(usedIds, portfolioUrl, blogUrl) {
+  const { topic, cycleWrapped } = pickTopic(usedIds);
+  const { title, html } = buildPostHtml({ topic, portfolioUrl, blogUrl });
+  return { title, html, topicId: topic.id, category: topic.category, cycleWrapped };
 }

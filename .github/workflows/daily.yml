@@ -32,6 +32,8 @@ jobs:
           GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
           GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
           PORTFOLIO_URL: ${{ secrets.PORTFOLIO_URL }}
+          BLOG_URL: ${{ secrets.BLOG_URL }}
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
           PUBLISH_MODE: ${{ secrets.PUBLISH_MODE }}
 
       - name: Save topic history

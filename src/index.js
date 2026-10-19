@@ -2,7 +2,8 @@ import 'dotenv/config';
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { generatePost } from './generate.js';
+import { buildPostHtml, pickTopic } from './generate.js';
+import { isAiEnabled, writeWithAi } from './ai.js';
 import { publishPost } from './publish.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -27,6 +28,32 @@ function saveHistory(history) {
   fs.writeFileSync(HISTORY_FILE, `${JSON.stringify(history, null, 2)}\n`);
 }
 
+function usedTitles(history) {
+  return new Set(history.posts.map((entry) => entry.title));
+}
+
+async function createPost({ history, env, portfolioUrl, blogUrl }) {
+  const { topic, cycleWrapped } = pickTopic(history.usedTopics);
+
+  let content = null;
+  if (isAiEnabled(env)) {
+    try {
+      content = await writeWithAi({ topic, apiKey: env.GROQ_API_KEY.trim() });
+    } catch (error) {
+      console.error(`AI mode failed, falling back to built-in text. Reason: ${error.message}`);
+      content = null;
+    }
+  }
+
+  const taken = usedTitles(history);
+  if (content && taken.has(content.title)) {
+    content = { ...content, title: topic.title };
+  }
+
+  const { title, html } = buildPostHtml({ topic, content, portfolioUrl, blogUrl });
+  return { topicId: topic.id, category: topic.category, title, html, cycleWrapped };
+}
+
 async function main() {
   const isDryRun = process.argv.includes('--dry-run');
   const env = process.env;
@@ -36,6 +63,7 @@ async function main() {
     console.error('ERROR: PORTFOLIO_URL is not set. Check your .env file.');
     process.exit(1);
   }
+  const blogUrl = (env.BLOG_URL ?? '').trim();
 
   if (!isDryRun) {
     for (const name of ['BLOG_ID', 'GOOGLE_CLIENT_ID', 'GOOGLE_CLIENT_SECRET', 'GOOGLE_REFRESH_TOKEN']) {
@@ -52,12 +80,13 @@ async function main() {
       `Posts recorded: ${history.posts.length}.`
   );
 
-  const post = generatePost(history.usedTopics, portfolioUrl);
+  const post = await createPost({ history, env, portfolioUrl, blogUrl });
 
   if (post.cycleWrapped) {
     console.log('All 30 topics were used before. Starting a new cycle.');
   }
   console.log(`Topic: [${post.category}] ${post.title}`);
+  console.log(isAiEnabled(env) ? 'Content source: Groq AI' : 'Content source: built-in topics');
 
   if (isDryRun) {
     console.log('\n--- DRY RUN: post below, nothing published ---\n');
