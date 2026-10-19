@@ -1,5 +1,5 @@
 const GROQ_URL = 'https://api.groq.com/openai/v1/chat/completions';
-const GROQ_MODEL = 'llama-3.3-70b-versatile';
+const GROQ_MODELS = ['openai/gpt-oss-120b', 'qwen/qwen3.8-27b', 'openai/gpt-oss-20b'];
 
 export function isAiEnabled(env) {
   return Boolean((env.GROQ_API_KEY ?? '').trim());
@@ -77,6 +77,19 @@ function buildPrompt(topic) {
  * Returns { title, intro, sections, takeaways, closing }.
  */
 export async function writeWithAi({ topic, apiKey, fetchImpl = fetch }) {
+  let lastError = null;
+
+  for (const model of GROQ_MODELS) {
+    try {
+      return await requestGroq({ topic, apiKey, model, fetchImpl });
+    } catch (error) {
+      lastError = error;
+    }
+  }
+  throw lastError ?? new Error('No Groq models available.');
+}
+
+async function requestGroq({ topic, apiKey, model, fetchImpl }) {
   const response = await fetchImpl(GROQ_URL, {
     method: 'POST',
     headers: {
@@ -84,9 +97,9 @@ export async function writeWithAi({ topic, apiKey, fetchImpl = fetch }) {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-      model: GROQ_MODEL,
+      model,
       temperature: 0.8,
-      max_tokens: 1400,
+      max_tokens: 1600,
       messages: [
         { role: 'system', content: 'You output only valid JSON. No markdown fences, no commentary.' },
         { role: 'user', content: buildPrompt(topic) }
@@ -96,7 +109,7 @@ export async function writeWithAi({ topic, apiKey, fetchImpl = fetch }) {
 
   if (!response.ok) {
     const body = await response.text();
-    throw new Error(`Groq API request failed (HTTP ${response.status}). ${body.slice(0, 200)}`);
+    throw new Error(`Groq ${model} failed (HTTP ${response.status}). ${body.slice(0, 160)}`);
   }
 
   const data = await response.json();

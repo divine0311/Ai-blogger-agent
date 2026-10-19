@@ -1,7 +1,8 @@
 {
   "usedTopics": [
     "local-seo",
-    "prompt-writing-basics"
+    "prompt-writing-basics",
+    "chatbot-conversation-flows"
   ],
   "posts": [
     {
@@ -17,6 +18,13 @@
       "title": "Prompt Writing Basics: Getting Better Results from AI Tools",
       "status": "draft",
       "postId": "3407413324232522775"
+    },
+    {
+      "date": "2026-10-19",
+      "topicId": "chatbot-conversation-flows",
+      "title": "Writing Clear Conversation Flows for Chatbots",
+      "status": "draft",
+      "postId": "3698485700191420750"
     }
   ]
 }

@@ -49,23 +49,31 @@ function pick(list) {
   return list[Math.floor(Math.random() * list.length)];
 }
 
-function bannerUrl(text, accent) {
-  return (
-    'https://placehold.co/1200x630/' +
-    accent.replace('#', '') +
-    '/ffffff.png?text=' +
-    encodeURIComponent(text)
-  );
+function photoUrl(seed, w = 1200, h = 630) {
+  return `https://picsum.photos/seed/${encodeURIComponent(seed)}/${w}/${h}`;
 }
 
-function buildHeroImage(title, category, style) {
+function buildHeroImage(title, category, topicId, style) {
   return [
-    `<img src="${bannerUrl(title, style.accent)}"`,
-    `alt="${escapeHtml(title)}"`,
+    '<div style="position:relative;margin:0 0 24px 0;border-radius:14px;overflow:hidden;box-shadow:0 6px 18px rgba(15,23,42,0.12);">',
+    `<img src="${photoUrl(`${topicId}-hero`)}" alt="${escapeHtml(title)}"`,
     'width="1200" height="630"',
-    'style="width:100%;max-width:100%;height:auto;border-radius:12px;display:block;margin:0 0 24px 0;"',
-    '/>'
-  ].join(' ');
+    'style="width:100%;max-width:100%;height:auto;display:block;"',
+    '/>',
+    `<span style="position:absolute;left:16px;bottom:16px;background:${style.accent};color:#ffffff;padding:8px 18px;border-radius:999px;font-size:14px;font-weight:600;letter-spacing:0.3px;box-shadow:0 2px 8px rgba(0,0,0,0.2);">${escapeHtml(category)}</span>`,
+    '</div>'
+  ].join('\n');
+}
+
+function buildInlineImage(title, topicId) {
+  return [
+    '<div style="margin:26px 0;">',
+    `<img src="${photoUrl(`${topicId}-mid`)}" alt="${escapeHtml(title)} - related illustration"`,
+    'width="1200" height="520"',
+    'style="width:100%;max-width:100%;height:auto;display:block;border-radius:12px;"',
+    '/>',
+    '</div>'
+  ].join('\n');
 }
 
 function buildPortfolioParagraph(category, portfolioUrl) {
@@ -144,15 +152,23 @@ export function buildPostHtml({ topic, content, portfolioUrl, blogUrl }) {
     content?.closing ??
     'Try one of these ideas this week, and keep what works for you. Small, consistent steps beat big, complicated plans.';
 
+  const half = Math.ceil(sections.length / 2);
+  const firstHalf = sections.slice(0, half).map((section) => buildSectionHtml(section, style)).join('\n');
+  const secondHalf = sections.slice(half).map((section) => buildSectionHtml(section, style)).join('\n');
+
   const html = [
     '<div style="font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;font-size:17px;line-height:1.75;color:#1f2937;">',
-    buildHeroImage(title, topic.category, style),
+    buildHeroImage(title, topic.category, topic.id, style),
     `<p style="margin:0 0 18px 0;font-size:18px;color:#374151;">${escapeHtml(intro)}</p>`,
-    sections.map((section) => buildSectionHtml(section, style)).join('\n'),
+    firstHalf,
+    buildInlineImage(title, topic.id),
+    secondHalf,
     buildTakeawaysBox(takeaways, style),
     buildPortfolioParagraph(topic.category, portfolioUrl),
     buildInternalLinkParagraph(topic.category, blogUrl),
-    `<p style="margin:26px 0 0 0;padding-top:18px;border-top:1px solid #e5e7eb;color:#4b5563;">${escapeHtml(closing)}</p>`,
+    `<p style="margin:26px 0 0 0;padding-top:18px;border-top:1px solid #e5e7eb;color:#4b5563;">${escapeHtml(closing)} ` +
+    `For more examples of this work, you can also see ` +
+    `<a href="${escapeHtml(portfolioUrl)}" target="_blank" rel="noopener noreferrer" style="color:#2563eb;font-weight:600;">projects I have built using these tools</a>.</p>`,
     '</div>'
   ].join('\n');
 
