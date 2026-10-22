@@ -84,13 +84,19 @@ function iconFor(category, deep) {
     case 'AI development':
       return `
 <g>
-  <rect x="360" y="170" width="250" height="140" rx="26" fill="#ffffff" opacity="0.95"/>
-  <path d="M 415 310 L 415 352 L 462 310 Z" fill="#ffffff" opacity="0.95"/>
-  <circle cx="435" cy="240" r="11" fill="${deep}"/>
-  <circle cx="485" cy="240" r="11" fill="${deep}"/>
-  <circle cx="535" cy="240" r="11" fill="${deep}"/>
-  <rect x="640" y="140" width="150" height="92" rx="20" fill="#ffffff" opacity="0.45"/>
-  <path d="M 700 235 L 700 265 L 735 237 Z" fill="#ffffff" opacity="0.45"/>
+  <rect x="425" y="185" width="150" height="120" rx="26" fill="#ffffff" opacity="0.97"/>
+  <rect x="470" y="150" width="60" height="42" rx="8" fill="#ffffff" opacity="0.85"/>
+  <circle cx="500" cy="142" r="9" fill="#ffffff" opacity="0.95"/>
+  <rect x="408" y="215" width="16" height="52" rx="8" fill="#ffffff" opacity="0.85"/>
+  <rect x="576" y="215" width="16" height="52" rx="8" fill="#ffffff" opacity="0.85"/>
+  <rect x="447" y="216" width="34" height="26" rx="7" fill="#22d3ee" opacity="0.95"/>
+  <rect x="519" y="216" width="34" height="26" rx="7" fill="#22d3ee" opacity="0.95"/>
+  <path d="M 455 278 Q 500 296 545 278" stroke="${deep}" stroke-width="9" fill="none" ${s}/>
+  <rect x="620" y="150" width="170" height="110" rx="22" fill="#ffffff" opacity="0.5"/>
+  <path d="M 656 262 L 656 292 L 690 264 Z" fill="#ffffff" opacity="0.5"/>
+  <circle cx="663" cy="190" r="7" fill="#ffffff"/>
+  <circle cx="690" cy="190" r="7" fill="#ffffff"/>
+  <circle cx="717" cy="190" r="7" fill="#ffffff"/>
 </g>`;
     default:
       return `
@@ -107,48 +113,96 @@ function iconFor(category, deep) {
   }
 }
 
-export function svgHero(category, title, style) {
+export function shortTitleLines(title) {
+  const words = String(title).split(' ');
+  const lines = [''];
+  for (const word of words) {
+    const i = lines.length - 1;
+    if ((lines[i] + ' ' + word).trim().length <= 38) {
+      lines[i] = (lines[i] + ' ' + word).trim();
+    } else if (lines.length < 2) {
+      lines.push(word);
+    } else {
+      break;
+    }
+  }
+  return lines.filter(Boolean).slice(0, 2);
+}
+
+function svgHero(category, title, style) {
   const deep = CAT_DEEP[category] ?? CAT_DEEP.AI;
+  const [line1, line2] = shortTitleLines(title);
+  const textLines = [
+    `<text x="500" y="86" text-anchor="middle" font-family="Arial, sans-serif" font-size="38" fill="#0f172a" opacity="0.55">${escapeHtml(line1)}</text>`,
+    `<text x="500" y="82" text-anchor="middle" font-family="Arial, sans-serif" font-size="38" fill="#ffffff">${escapeHtml(line1)}</text>`,
+    line2 ? `<text x="500" y="130" text-anchor="middle" font-family="Arial, sans-serif" font-size="38" fill="#ffffff">${escapeHtml(line2)}</text>` : ''
+  ].join('\n  ');
   return svgToDataUri(`
 <svg xmlns="http://www.w3.org/2000/svg" width="1000" height="520" viewBox="0 0 1000 520">
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0" stop-color="${style.accent}"/>
-      <stop offset="1" stop-color="${deep}"/>
+      <stop offset="0.55" stop-color="${deep}"/>
+      <stop offset="1" stop-color="#0b1120"/>
     </linearGradient>
     <radialGradient id="glow" cx="0.5" cy="0.42" r="0.55">
-      <stop offset="0" stop-color="#ffffff" stop-opacity="0.30"/>
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.35"/>
       <stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
     </radialGradient>
+    <radialGradient id="orb" cx="0.35" cy="0.3" r="0.8">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.14"/>
+      <stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="soft" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="14" stdDeviation="16" flood-color="#000000" flood-opacity="0.35"/>
+    </filter>
+    <filter id="dreamy" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="55"/>
+    </filter>
   </defs>
   <rect width="1000" height="520" fill="url(#bg)"/>
-  <circle cx="115" cy="75" r="190" fill="#ffffff" opacity="0.08"/>
-  <circle cx="905" cy="445" r="230" fill="#ffffff" opacity="0.07"/>
-  <circle cx="500" cy="245" r="215" fill="url(#glow)"/>
-  <ellipse cx="500" cy="445" rx="185" ry="26" fill="#000000" opacity="0.16"/>
-  <title>${escapeHtml(title)}</title>
-  ${iconFor(category, deep)}
+  <ellipse cx="220" cy="120" rx="240" ry="180" fill="#ffffff" opacity="0.14" filter="url(#dreamy)"/>
+  <ellipse cx="860" cy="430" rx="260" ry="170" fill="#ffffff" opacity="0.10" filter="url(#dreamy)"/>
+  <circle cx="500" cy="255" r="205" fill="url(#glow)"/>
+  <path d="M -40 430 Q 300 300 700 380 T 1040 300" stroke="#ffffff" stroke-width="90" fill="none" opacity="0.07" stroke-linecap="round"/>
+  ${textLines}
+  <circle cx="500" cy="295" r="118" fill="url(#orb)"/>
+  <g filter="url(#soft)">${iconFor(category, deep)}</g>
+  <ellipse cx="500" cy="452" rx="175" ry="22" fill="#000000" opacity="0.28"/>
 </svg>`);
 }
 
 export function svgMid(category, style) {
   const deep = CAT_DEEP[category] ?? CAT_DEEP.AI;
   return svgToDataUri(`
-<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="360" viewBox="0 0 1000 360">
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="400" viewBox="0 0 1000 400">
   <defs>
     <linearGradient id="bgm" x1="0" y1="0" x2="1" y2="0">
       <stop offset="0" stop-color="${deep}"/>
       <stop offset="1" stop-color="${style.accent}"/>
     </linearGradient>
+    <radialGradient id="mglow" cx="0.5" cy="0.5" r="0.6">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.25"/>
+      <stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="msoft" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="10" stdDeviation="12" flood-color="#000000" flood-opacity="0.3"/>
+    </filter>
   </defs>
-  <rect width="1000" height="360" fill="url(#bgm)" rx="14"/>
-  <path d="M 80 250 C 260 140, 380 320, 540 200 C 700 90, 820 280, 940 170" stroke="#ffffff" stroke-width="16" fill="none" opacity="0.9" stroke-linecap="round"/>
-  <path d="M 80 300 C 260 200, 380 360, 540 250 C 700 150, 820 330, 940 230" stroke="#ffffff" stroke-width="9" fill="none" opacity="0.35" stroke-linecap="round"/>
-  <circle cx="150" cy="255" r="14" fill="#ffffff" opacity="0.95"/>
-  <circle cx="500" cy="205" r="14" fill="#ffffff" opacity="0.95"/>
-  <circle cx="850" cy="185" r="14" fill="#ffffff" opacity="0.95"/>
-  <circle cx="880" cy="70" r="90" fill="#ffffff" opacity="0.10"/>
-  <circle cx="120" cy="310" r="70" fill="#ffffff" opacity="0.10"/>
+  <rect width="1000" height="400" fill="url(#bgm)" rx="14"/>
+  <circle cx="500" cy="200" r="170" fill="url(#mglow)"/>
+  <circle cx="120" cy="330" r="80" fill="#ffffff" opacity="0.10"/>
+  <circle cx="900" cy="70" r="110" fill="#ffffff" opacity="0.10"/>
+  <g filter="url(#msoft)">
+    <rect x="240" y="90" width="300" height="96" rx="26" fill="#ffffff" opacity="0.97"/>
+    <circle cx="290" cy="138" r="10" fill="${deep}" opacity="0.9"/>
+    <circle cx="325" cy="138" r="10" fill="${deep}" opacity="0.9"/>
+    <circle cx="360" cy="138" r="10" fill="${deep}" opacity="0.9"/>
+    <rect x="470" y="220" width="290" height="92" rx="26" fill="#0f172a" opacity="0.55"/>
+    <circle cx="515" cy="266" r="10" fill="#ffffff" opacity="0.9"/>
+    <circle cx="550" cy="266" r="10" fill="#ffffff" opacity="0.9"/>
+    <circle cx="585" cy="266" r="10" fill="#ffffff" opacity="0.9"/>
+  </g>
 </svg>`);
 }
 

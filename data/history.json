@@ -2,7 +2,8 @@
   "usedTopics": [
     "local-seo",
     "prompt-writing-basics",
-    "chatbot-conversation-flows"
+    "chatbot-conversation-flows",
+    "adding-chatbot-existing-website"
   ],
   "posts": [
     {
@@ -25,6 +26,13 @@
       "title": "Writing Clear Conversation Flows for Chatbots",
       "status": "draft",
       "postId": "352794127787858610"
+    },
+    {
+      "date": "2026-10-22",
+      "topicId": "adding-chatbot-existing-website",
+      "title": "How to Add a Chatbot Without Rebuilding Your Website",
+      "status": "live",
+      "postId": "3993453710935085056"
     }
   ]
 }

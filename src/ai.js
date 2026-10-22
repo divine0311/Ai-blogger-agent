@@ -58,19 +58,20 @@ function buildPrompt(topic) {
     `Topic: ${topic.title}`,
     `Category: ${topic.category}`,
     `Angle to cover: ${topic.intro}`,
+    'Make the post feel current and useful for readers right now: focus on what people are actively asking and doing around this topic this year. Keep every claim general knowledge only - no invented trends, numbers or dates.',
     '',
     'Return ONLY valid JSON with exactly this shape:',
     '{',
     '  "title": "under 70 characters, no clickbait, clearly about the topic",',
-    '  "intro": "2-3 sentences introducing the reader\'s problem, on topic",',
+    '  "intro": "3-4 sentences introducing the reader\'s problem, on topic",',
     '  "sections": [',
-    '    {"heading": "short heading", "text": "60-90 words of concrete, accurate advice"}',
+    '    {"heading": "short heading", "text": "100-140 words of concrete, accurate advice with practical steps"}',
     '  ],',
-    '  "takeaways": ["3 to 5 short bullet points"],',
-    '  "closing": "1-2 sentences encouraging one small action this week"',
+    '  "takeaways": ["4 to 6 short bullet points"],',
+    '  "closing": "2-3 sentences encouraging one small action this week"',
     '}',
     '',
-    'The "sections" array must contain 4 items.'
+    'The "sections" array must contain exactly 5 items. Total post should read like a complete guide.'
   ].join('\n');
 }
 
@@ -101,7 +102,7 @@ async function requestGroq({ topic, apiKey, model, fetchImpl }) {
     body: JSON.stringify({
       model,
       temperature: 0.8,
-      max_tokens: 1600,
+      max_tokens: 2300,
       messages: [
         { role: 'system', content: 'You output only valid JSON. No markdown fences, no commentary.' },
         { role: 'user', content: buildPrompt(topic) }

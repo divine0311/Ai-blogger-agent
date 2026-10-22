@@ -2,7 +2,7 @@ name: Daily blog post
 
 on:
   schedule:
-    - cron: '30 3 * * *'
+    - cron: '0 2 * * *'
   workflow_dispatch:
 
 permissions:
