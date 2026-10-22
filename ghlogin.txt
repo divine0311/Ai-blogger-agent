@@ -1,0 +1,6 @@
+﻿C:\Program Files\GitHub CLI\gh.exe : 
+    + CategoryInfo          : NotSpecified: (:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+! One-time code (0D21-5FAE) copied to clipboard
+Open this URL to continue in your web browser: https://github.com/login/device
