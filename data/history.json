@@ -3,7 +3,8 @@
     "local-seo",
     "prompt-writing-basics",
     "chatbot-conversation-flows",
-    "adding-chatbot-existing-website"
+    "adding-chatbot-existing-website",
+    "voice-interfaces-vs-chatbots"
   ],
   "posts": [
     {
@@ -33,6 +34,13 @@
       "title": "How to Add a Chatbot Without Rebuilding Your Website",
       "status": "live",
       "postId": "3993453710935085056"
+    },
+    {
+      "date": "2026-10-22",
+      "topicId": "voice-interfaces-vs-chatbots",
+      "title": "Voice Interfaces vs Chatbots: Choosing the Right Interaction Mode",
+      "status": "draft",
+      "postId": "810941060434611818"
     }
   ]
 }
