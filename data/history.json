@@ -4,7 +4,8 @@
     "prompt-writing-basics",
     "chatbot-conversation-flows",
     "adding-chatbot-existing-website",
-    "voice-interfaces-vs-chatbots"
+    "voice-interfaces-vs-chatbots",
+    "ai-in-education"
   ],
   "posts": [
     {
@@ -41,6 +42,13 @@
       "title": "Voice Interfaces vs Chatbots: Choosing the Right Interaction Mode",
       "status": "draft",
       "postId": "810941060434611818"
+    },
+    {
+      "date": "2026-10-23",
+      "topicId": "ai-in-education",
+      "title": "AI in Education: Practical Uses for Students and Teachers",
+      "status": "draft",
+      "postId": "3440186773224968068"
     }
   ]
 }
