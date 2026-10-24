@@ -5,7 +5,8 @@
     "chatbot-conversation-flows",
     "adding-chatbot-existing-website",
     "voice-interfaces-vs-chatbots",
-    "ai-in-education"
+    "ai-in-education",
+    "music-and-sound-for-video"
   ],
   "posts": [
     {
@@ -49,6 +50,13 @@
       "title": "AI in Education: Practical Uses for Students and Teachers",
       "status": "draft",
       "postId": "3440186773224968068"
+    },
+    {
+      "date": "2026-10-24",
+      "topicId": "music-and-sound-for-video",
+      "title": "Practical Rules for Choosing Video Music",
+      "status": "draft",
+      "postId": "3132273295540753791"
     }
   ]
 }
