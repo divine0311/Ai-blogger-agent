@@ -6,7 +6,8 @@
     "adding-chatbot-existing-website",
     "voice-interfaces-vs-chatbots",
     "ai-in-education",
-    "music-and-sound-for-video"
+    "music-and-sound-for-video",
+    "free-analytics-tools"
   ],
   "posts": [
     {
@@ -57,6 +58,13 @@
       "title": "Practical Rules for Choosing Video Music",
       "status": "draft",
       "postId": "3132273295540753791"
+    },
+    {
+      "date": "2026-10-25",
+      "topicId": "free-analytics-tools",
+      "title": "Free Analytics Tools for Audience Insights",
+      "status": "draft",
+      "postId": "4900058045124150241"
     }
   ]
 }
