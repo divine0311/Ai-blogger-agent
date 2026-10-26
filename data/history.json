@@ -7,7 +7,8 @@
     "voice-interfaces-vs-chatbots",
     "ai-in-education",
     "music-and-sound-for-video",
-    "free-analytics-tools"
+    "free-analytics-tools",
+    "ai-for-everyday-productivity"
   ],
   "posts": [
     {
@@ -65,6 +66,13 @@
       "title": "Free Analytics Tools for Audience Insights",
       "status": "draft",
       "postId": "4900058045124150241"
+    },
+    {
+      "date": "2026-10-26",
+      "topicId": "ai-for-everyday-productivity",
+      "title": "Simple AI Wins for Daily Productivity",
+      "status": "draft",
+      "postId": "1461615406407498283"
     }
   ]
 }
