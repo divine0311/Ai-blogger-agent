@@ -9,7 +9,8 @@
     "music-and-sound-for-video",
     "free-analytics-tools",
     "ai-for-everyday-productivity",
-    "first-video-cut-guide"
+    "first-video-cut-guide",
+    "planning-ai-powered-website"
   ],
   "posts": [
     {
@@ -81,6 +82,13 @@
       "title": "How to Edit Your First Video Without Panic",
       "status": "draft",
       "postId": "6023778158382025496"
+    },
+    {
+      "date": "2026-10-28",
+      "topicId": "planning-ai-powered-website",
+      "title": "Planning a Website with AI Features: Start with Real Problems",
+      "status": "draft",
+      "postId": "5646840430723358500"
     }
   ]
 }
