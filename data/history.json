@@ -10,7 +10,8 @@
     "free-analytics-tools",
     "ai-for-everyday-productivity",
     "first-video-cut-guide",
-    "planning-ai-powered-website"
+    "planning-ai-powered-website",
+    "free-vs-paid-ai-tools"
   ],
   "posts": [
     {
@@ -89,6 +90,13 @@
       "title": "Planning a Website with AI Features: Start with Real Problems",
       "status": "draft",
       "postId": "5646840430723358500"
+    },
+    {
+      "date": "2026-10-29",
+      "topicId": "free-vs-paid-ai-tools",
+      "title": "Free vs Paid AI Tools: How to Choose What You Actually Need",
+      "status": "draft",
+      "postId": "236513738236645298"
     }
   ]
 }
