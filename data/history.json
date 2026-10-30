@@ -11,7 +11,8 @@
     "ai-for-everyday-productivity",
     "first-video-cut-guide",
     "planning-ai-powered-website",
-    "free-vs-paid-ai-tools"
+    "free-vs-paid-ai-tools",
+    "ai-ethics-for-beginners"
   ],
   "posts": [
     {
@@ -97,6 +98,13 @@
       "title": "Free vs Paid AI Tools: How to Choose What You Actually Need",
       "status": "draft",
       "postId": "236513738236645298"
+    },
+    {
+      "date": "2026-10-30",
+      "topicId": "ai-ethics-for-beginners",
+      "title": "Practical AI Ethics for Everyday Users",
+      "status": "draft",
+      "postId": "8440549649246219494"
     }
   ]
 }
