@@ -12,7 +12,8 @@
     "first-video-cut-guide",
     "planning-ai-powered-website",
     "free-vs-paid-ai-tools",
-    "ai-ethics-for-beginners"
+    "ai-ethics-for-beginners",
+    "email-marketing-basics"
   ],
   "posts": [
     {
@@ -105,6 +106,13 @@
       "title": "Practical AI Ethics for Everyday Users",
       "status": "draft",
       "postId": "8440549649246219494"
+    },
+    {
+      "date": "2026-10-31",
+      "topicId": "email-marketing-basics",
+      "title": "Email Marketing Basics for Absolute Beginners",
+      "status": "draft",
+      "postId": "3471210855013642449"
     }
   ]
 }
