@@ -13,7 +13,8 @@
     "planning-ai-powered-website",
     "free-vs-paid-ai-tools",
     "ai-ethics-for-beginners",
-    "email-marketing-basics"
+    "email-marketing-basics",
+    "long-video-to-shorts"
   ],
   "posts": [
     {
@@ -113,6 +114,13 @@
       "title": "Email Marketing Basics for Absolute Beginners",
       "status": "draft",
       "postId": "3471210855013642449"
+    },
+    {
+      "date": "2026-11-01",
+      "topicId": "long-video-to-shorts",
+      "title": "Turning a Long Video into Short Clips",
+      "status": "draft",
+      "postId": "2480907319764563215"
     }
   ]
 }
