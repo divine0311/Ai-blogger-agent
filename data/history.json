@@ -14,7 +14,8 @@
     "free-vs-paid-ai-tools",
     "ai-ethics-for-beginners",
     "email-marketing-basics",
-    "long-video-to-shorts"
+    "long-video-to-shorts",
+    "blog-posts-people-read"
   ],
   "posts": [
     {
@@ -121,6 +122,13 @@
       "title": "Turning a Long Video into Short Clips",
       "status": "draft",
       "postId": "2480907319764563215"
+    },
+    {
+      "date": "2026-11-02",
+      "topicId": "blog-posts-people-read",
+      "title": "Structural Habits for Readable Blog Posts",
+      "status": "draft",
+      "postId": "4732174290841010321"
     }
   ]
 }
