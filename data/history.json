@@ -15,7 +15,8 @@
     "ai-ethics-for-beginners",
     "email-marketing-basics",
     "long-video-to-shorts",
-    "blog-posts-people-read"
+    "blog-posts-people-read",
+    "color-correction-basics"
   ],
   "posts": [
     {
@@ -129,6 +130,13 @@
       "title": "Structural Habits for Readable Blog Posts",
       "status": "draft",
       "postId": "4732174290841010321"
+    },
+    {
+      "date": "2026-11-03",
+      "topicId": "color-correction-basics",
+      "title": "Color Correction Basics for a Clean, Natural Video Look",
+      "status": "draft",
+      "postId": "3881069625970291320"
     }
   ]
 }
