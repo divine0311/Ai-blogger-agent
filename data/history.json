@@ -16,7 +16,8 @@
     "email-marketing-basics",
     "long-video-to-shorts",
     "blog-posts-people-read",
-    "color-correction-basics"
+    "color-correction-basics",
+    "personal-ai-workflow"
   ],
   "posts": [
     {
@@ -137,6 +138,13 @@
       "title": "Color Correction Basics for a Clean, Natural Video Look",
       "status": "draft",
       "postId": "3881069625970291320"
+    },
+    {
+      "date": "2026-11-04",
+      "topicId": "personal-ai-workflow",
+      "title": "Build a Simple Personal AI Workflow to Save Real Time",
+      "status": "draft",
+      "postId": "6707488277871338104"
     }
   ]
 }
