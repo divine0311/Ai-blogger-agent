@@ -17,7 +17,8 @@
     "long-video-to-shorts",
     "blog-posts-people-read",
     "color-correction-basics",
-    "personal-ai-workflow"
+    "personal-ai-workflow",
+    "seo-basics-small-websites"
   ],
   "posts": [
     {
@@ -145,6 +146,13 @@
       "title": "Build a Simple Personal AI Workflow to Save Real Time",
       "status": "draft",
       "postId": "6707488277871338104"
+    },
+    {
+      "date": "2026-11-05",
+      "topicId": "seo-basics-small-websites",
+      "title": "SEO Basics for Small Websites: A Practical Starting Point",
+      "status": "draft",
+      "postId": "2573249296769502983"
     }
   ]
 }
