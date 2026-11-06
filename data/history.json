@@ -18,7 +18,8 @@
     "blog-posts-people-read",
     "color-correction-basics",
     "personal-ai-workflow",
-    "seo-basics-small-websites"
+    "seo-basics-small-websites",
+    "export-settings-social-video"
   ],
   "posts": [
     {
@@ -153,6 +154,13 @@
       "title": "SEO Basics for Small Websites: A Practical Starting Point",
       "status": "draft",
       "postId": "2573249296769502983"
+    },
+    {
+      "date": "2026-11-06",
+      "topicId": "export-settings-social-video",
+      "title": "Exporting Social Media Video Without Losing Quality",
+      "status": "draft",
+      "postId": "1765148215546381363"
     }
   ]
 }
