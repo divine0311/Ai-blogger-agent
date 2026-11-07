@@ -19,7 +19,8 @@
     "color-correction-basics",
     "personal-ai-workflow",
     "seo-basics-small-websites",
-    "export-settings-social-video"
+    "export-settings-social-video",
+    "how-generative-ai-works"
   ],
   "posts": [
     {
@@ -161,6 +162,13 @@
       "title": "Exporting Social Media Video Without Losing Quality",
       "status": "draft",
       "postId": "1765148215546381363"
+    },
+    {
+      "date": "2026-11-07",
+      "topicId": "how-generative-ai-works",
+      "title": "How Generative AI Works in Plain English",
+      "status": "draft",
+      "postId": "2752312175812025566"
     }
   ]
 }
