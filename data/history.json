@@ -20,7 +20,8 @@
     "personal-ai-workflow",
     "seo-basics-small-websites",
     "export-settings-social-video",
-    "how-generative-ai-works"
+    "how-generative-ai-works",
+    "data-privacy-ai-websites"
   ],
   "posts": [
     {
@@ -169,6 +170,13 @@
       "title": "How Generative AI Works in Plain English",
       "status": "draft",
       "postId": "2752312175812025566"
+    },
+    {
+      "date": "2026-11-08",
+      "topicId": "data-privacy-ai-websites",
+      "title": "Data Privacy Basics for AI-Powered Websites",
+      "status": "draft",
+      "postId": "5042782164359236253"
     }
   ]
 }
