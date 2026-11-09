@@ -21,7 +21,8 @@
     "seo-basics-small-websites",
     "export-settings-social-video",
     "how-generative-ai-works",
-    "data-privacy-ai-websites"
+    "data-privacy-ai-websites",
+    "keeping-viewers-engaged"
   ],
   "posts": [
     {
@@ -177,6 +178,13 @@
       "title": "Data Privacy Basics for AI-Powered Websites",
       "status": "draft",
       "postId": "5042782164359236253"
+    },
+    {
+      "date": "2026-11-09",
+      "topicId": "keeping-viewers-engaged",
+      "title": "Structuring Short Videos for Sustained Viewer Attention",
+      "status": "draft",
+      "postId": "5155579105085032661"
     }
   ]
 }
