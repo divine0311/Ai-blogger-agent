@@ -22,7 +22,8 @@
     "export-settings-social-video",
     "how-generative-ai-works",
     "data-privacy-ai-websites",
-    "keeping-viewers-engaged"
+    "keeping-viewers-engaged",
+    "evaluating-ai-output"
   ],
   "posts": [
     {
@@ -185,6 +186,13 @@
       "title": "Structuring Short Videos for Sustained Viewer Attention",
       "status": "draft",
       "postId": "5155579105085032661"
+    },
+    {
+      "date": "2026-11-10",
+      "topicId": "evaluating-ai-output",
+      "title": "A Practical Routine for Checking AI Output",
+      "status": "draft",
+      "postId": "3280801297715137792"
     }
   ]
 }
