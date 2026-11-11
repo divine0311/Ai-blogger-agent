@@ -23,7 +23,8 @@
     "how-generative-ai-works",
     "data-privacy-ai-websites",
     "keeping-viewers-engaged",
-    "evaluating-ai-output"
+    "evaluating-ai-output",
+    "when-chatbot-is-wrong-choice"
   ],
   "posts": [
     {
@@ -193,6 +194,13 @@
       "title": "A Practical Routine for Checking AI Output",
       "status": "draft",
       "postId": "3280801297715137792"
+    },
+    {
+      "date": "2026-11-11",
+      "topicId": "when-chatbot-is-wrong-choice",
+      "title": "Why a Chatbot Might Be the Wrong Choice for Your Site",
+      "status": "draft",
+      "postId": "7875345376817356100"
     }
   ]
 }
