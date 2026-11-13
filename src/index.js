@@ -5,6 +5,7 @@ import { fileURLToPath } from 'node:url';
 import { buildPostHtml, pickTopic } from './generate.js';
 import { isAiEnabled, writeWithAi } from './ai.js';
 import { publishPost } from './publish.js';
+import { fetchTopicImages } from './images.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const DATA_DIR = path.join(__dirname, '..', 'data');
@@ -50,7 +51,15 @@ async function createPost({ history, env, portfolioUrl, blogUrl }) {
     content = { ...content, title: topic.title };
   }
 
-  const { title, html } = buildPostHtml({ topic, content, portfolioUrl, blogUrl });
+  const query = `${topic.title}`;
+  let imageUrls = [];
+  try {
+    imageUrls = await fetchTopicImages(query, (env.PIXABAY_API_KEY ?? '').trim(), topic.category);
+  } catch (error) {
+    console.error(`Image fetch failed: ${error.message}`);
+  }
+
+  const { title, html } = buildPostHtml({ topic, content, portfolioUrl, blogUrl, imageUrls });
   return { topicId: topic.id, category: topic.category, title, html, cycleWrapped };
 }
 

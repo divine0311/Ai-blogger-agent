@@ -240,6 +240,18 @@ function buildPortfolioParagraph(category, portfolioUrl) {
   );
 }
 
+function buildPortfolioParagraph2(category, portfolioUrl) {
+  const anchor2 = pick([
+    'my latest portfolio work',
+    'my complete project showcase',
+    'my hands-on project collection'
+  ]);
+  return (
+    `<p>You can also explore <a href="${escapeHtml(portfolioUrl)}" target="_blank" rel="noopener noreferrer" ` +
+    `style="color:#2563eb;font-weight:600;">${anchor2}</a> to see more real-world examples.</p>`
+  );
+}
+
 function buildInternalLinkParagraph(category, blogUrl) {
   if (!blogUrl) return '';
   const label = category.toLowerCase();
@@ -293,7 +305,7 @@ export function pickTopic(usedIds = []) {
  * `content` is optional AI-written content; when absent the topic's built-in
  * text is used so the tool always works without an API key.
  */
-export function buildPostHtml({ topic, content, portfolioUrl, blogUrl }) {
+export function buildPostHtml({ topic, content, portfolioUrl, blogUrl, imageUrls }) {
   const style = CATEGORY_STYLES[topic.category] ?? CATEGORY_STYLES.AI;
 
   const title = content?.title ?? topic.title;
@@ -309,19 +321,28 @@ export function buildPostHtml({ topic, content, portfolioUrl, blogUrl }) {
   const firstHalf = sections.slice(0, half).map((section) => buildSectionHtml(section, style)).join('\n');
   const secondHalf = sections.slice(half).map((section) => buildSectionHtml(section, style)).join('\n');
 
+  let heroImg = '';
+  let inlineImg = '';
+
+  // Use topic-related Pixabay images if available, otherwise skip images
+  const usableImages = Array.isArray(imageUrls) ? imageUrls : [];
+  if (usableImages.length > 0) {
+    heroImg = usableImages[0] ? `<div style="margin:26px 0;"><a href="${escapeHtml(usableImages[0].page || '#')}" target="_blank" rel="noopener noreferrer"><img src="${escapeHtml(usableImages[0].url)}" alt="${escapeHtml(topic.category)}" width="1000" height="563" style="width:100%;max-width:100%;height:auto;display:block;border-radius:14px;box-shadow:0 4px 12px rgba(15,23,42,0.12);" /></a></div>` : '';
+    if (usableImages.length > 1) {
+      inlineImg = `<div style="margin:26px 0;"><img src="${escapeHtml(usableImages[1].url)}" alt="${escapeHtml(topic.category)} - illustration" width="1000" height="360" style="width:100%;max-width:100%;height:auto;display:block;border-radius:14px;box-shadow:0 4px 12px rgba(15,23,42,0.12);" /></div>`;
+    }
+  }
+
   const html = [
-    '<div style="font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;font-size:17px;line-height:1.75;color:#1f2937;">',
-    buildHeroImage(title, topic.category, topic.id, style),
-    `<p style="margin:0 0 18px 0;font-size:18px;color:#374151;">${escapeHtml(intro)}</p>`,
+    heroImg,
+    `<p style="margin:0 0 18px 0;font-size:18px;color:#374151;">${escapeHtml(intro)} ` +
+    `<a href="${escapeHtml(portfolioUrl)}" target="_blank" rel="noopener noreferrer" style="color:#2563eb;font-weight:600;">my portfolio of practical projects</a></p>`,
     firstHalf,
-    buildInlineImage(topic.category, title, style),
+    inlineImg,
     secondHalf,
     buildTakeawaysBox(takeaways, style),
-    buildPortfolioParagraph(topic.category, portfolioUrl),
-    buildInternalLinkParagraph(topic.category, blogUrl),
-    `<p style="margin:26px 0 0 0;padding-top:18px;border-top:1px solid #e5e7eb;color:#4b5563;">${escapeHtml(closing)} ` +
-    `For more examples of this work, you can also see ` +
-    `<a href="${escapeHtml(portfolioUrl)}" target="_blank" rel="noopener noreferrer" style="color:#2563eb;font-weight:600;">projects I have built using these tools</a>.</p>`,
+    buildPortfolioParagraph2(topic.category, portfolioUrl),
+    `<p style="margin:26px 0 0 0;padding-top:18px;border-top:1px solid #e5e7eb;color:#4b5563;">${escapeHtml(closing)}</p>`,
     '</div>'
   ].join('\n');
 
@@ -331,8 +352,8 @@ export function buildPostHtml({ topic, content, portfolioUrl, blogUrl }) {
 /**
  * Convenience wrapper: pick a topic and build the post.
  */
-export function generatePost(usedIds, portfolioUrl, blogUrl) {
+export function generatePost(usedIds, portfolioUrl, blogUrl, imageUrls) {
   const { topic, cycleWrapped } = pickTopic(usedIds);
-  const { title, html } = buildPostHtml({ topic, portfolioUrl, blogUrl });
+  const { title, html } = buildPostHtml({ topic, portfolioUrl, blogUrl, imageUrls });
   return { title, html, topicId: topic.id, category: topic.category, cycleWrapped };
 }
