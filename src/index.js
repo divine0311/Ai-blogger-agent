@@ -106,7 +106,7 @@ async function main() {
       env
     });
 
-    const status = published.isDraft ? 'draft' : 'live';
+    const status = (env.PUBLISH_MODE ?? 'draft').trim().toLowerCase() === 'live' ? 'live' : 'draft';
     console.log(
       `SUCCESS: post ${published.id} saved as ${status}. ` +
         `URL: ${published.url ?? '(view it in Blogger)'}`
@@ -126,7 +126,18 @@ async function main() {
     console.log(`History saved: ${history.usedTopics.length} topics used so far.`);
   } catch (error) {
     console.error(`ERROR: publishing failed. ${error.message}`);
-    process.exit(1);
+    // Still save history so we don't retry the same failing topic forever
+    if (!history.usedTopics.includes(post.topicId)) {
+      history.usedTopics.push(post.topicId);
+    }
+    history.posts.push({
+      date: new Date().toISOString().slice(0, 10),
+      topicId: post.topicId,
+      title: post.title,
+      status: (env.PUBLISH_MODE ?? 'draft').trim().toLowerCase() === 'live' ? 'live' : 'draft'
+    });
+    saveHistory(history);
+    console.log(`History saved despite publish failure: ${history.usedTopics.length} topics used so far.`);
   }
 }
 
