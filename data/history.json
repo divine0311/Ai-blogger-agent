@@ -25,7 +25,8 @@
     "keeping-viewers-engaged",
     "evaluating-ai-output",
     "when-chatbot-is-wrong-choice",
-    "honest-headlines"
+    "honest-headlines",
+    "content-repurposing"
   ],
   "posts": [
     {
@@ -209,6 +210,13 @@
       "title": "How to Write Honest Headlines That Still Get Clicks",
       "status": "draft",
       "postId": "1687772012456523661"
+    },
+    {
+      "date": "2026-11-13",
+      "topicId": "content-repurposing",
+      "title": "Content Repurposing: One Idea, Many Formats",
+      "status": "draft",
+      "postId": "113914126903722483"
     }
   ]
 }
