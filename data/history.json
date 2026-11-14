@@ -26,7 +26,8 @@
     "evaluating-ai-output",
     "when-chatbot-is-wrong-choice",
     "honest-headlines",
-    "content-repurposing"
+    "content-repurposing",
+    "social-media-content-calendar"
   ],
   "posts": [
     {
@@ -217,6 +218,13 @@
       "title": "Content Repurposing: One Idea, Many Formats",
       "status": "draft",
       "postId": "113914126903722483"
+    },
+    {
+      "date": "2026-11-14",
+      "topicId": "social-media-content-calendar",
+      "title": "Stop Guessing: Build a Simple Social Media Content Calendar",
+      "status": "draft",
+      "postId": "7862552734603239458"
     }
   ]
 }
