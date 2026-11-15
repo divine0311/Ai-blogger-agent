@@ -27,7 +27,8 @@
     "when-chatbot-is-wrong-choice",
     "honest-headlines",
     "content-repurposing",
-    "social-media-content-calendar"
+    "social-media-content-calendar",
+    "testing-ai-features"
   ],
   "posts": [
     {
@@ -225,6 +226,13 @@
       "title": "Stop Guessing: Build a Simple Social Media Content Calendar",
       "status": "draft",
       "postId": "7862552734603239458"
+    },
+    {
+      "date": "2026-11-15",
+      "topicId": "testing-ai-features",
+      "title": "Testing AI Features Before You Launch Them",
+      "status": "draft",
+      "postId": "4234952629537880706"
     }
   ]
 }
