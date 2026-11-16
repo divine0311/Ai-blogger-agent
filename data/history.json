@@ -28,7 +28,8 @@
     "honest-headlines",
     "content-repurposing",
     "social-media-content-calendar",
-    "testing-ai-features"
+    "testing-ai-features",
+    "choosing-tech-stack-ai-web"
   ],
   "posts": [
     {
@@ -233,6 +234,13 @@
       "title": "Testing AI Features Before You Launch Them",
       "status": "draft",
       "postId": "4234952629537880706"
+    },
+    {
+      "date": "2026-11-16",
+      "topicId": "choosing-tech-stack-ai-web",
+      "title": "Choosing a Simple Tech Stack for AI Web Projects",
+      "status": "live",
+      "postId": "6791268043471681530"
     }
   ]
 }
